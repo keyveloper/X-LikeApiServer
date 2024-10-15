@@ -1,5 +1,6 @@
 package com.example.liveApiServer.entity
 
+import com.example.liveApiServer.enum.LikeType
 import jakarta.persistence.*
 
 @Entity
@@ -19,5 +20,8 @@ class Like(
     val boardId: Long,
 
     @Column(name = "user_id")
-    val userId: Long
+    val userId: Long,
+
+    @Column(name = "like_type")
+    val likeType: LikeType
 )
