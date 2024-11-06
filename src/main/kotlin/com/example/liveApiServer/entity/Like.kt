@@ -14,14 +14,11 @@ import jakarta.persistence.*
 )
 class Like(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long? = null,
+    var id: Long?,
 
-    @Column(name = "board_id")
     val boardId: Long,
 
-    @Column(name = "user_id")
     val userId: Long,
 
-    @Column(name = "like_type")
-    val likeType: LikeType
+    val likeType: Int
 )
