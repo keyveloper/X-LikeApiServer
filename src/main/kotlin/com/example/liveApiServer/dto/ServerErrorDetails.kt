@@ -1,9 +1,7 @@
 package com.example.liveApiServer.dto
 
-import com.example.liveApiServer.enum.ServerErrorCode
-
 // use only when error occur
-data class ServerErrorWithRfc7807(
+data class ServerErrorDetails(
     val type: String?,     // error url
     val status: Int,      // Server Error Code
     val title: String,    // summary of Error

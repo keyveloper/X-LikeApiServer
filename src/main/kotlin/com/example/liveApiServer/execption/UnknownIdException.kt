@@ -1,5 +1,5 @@
 package com.example.liveApiServer.execption
 
-import com.example.liveApiServer.enum.ServerErrorCode
+import com.example.liveApiServer.enum.ServiceServerError
 
-class UnknownIdException: LikeApiException(ServerErrorCode.UNKNOWN_ID, "Unknown Id.")
+class UnknownIdException: LikeApiException(ServiceServerError.UNKNOWN_ID, "Unknown Id.")

@@ -1,9 +1,11 @@
 package com.example.liveApiServer.controller
 
-import com.example.liveApiServer.dto.LikeSaveDto
-import com.example.liveApiServer.dto.ResponseToServerDto
-import com.example.liveApiServer.repository.LikeRepository
+import com.example.liveApiServer.dto.LikeRequest
+import com.example.liveApiServer.dto.LikeServerSaveResponse
+import com.example.liveApiServer.dto.save.LikeRequest
+import com.example.liveApiServer.dto.save.LikeServerSaveResponse
 import com.example.liveApiServer.service.LikeService
+import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,13 +21,11 @@ class LikeController(
 
     @PostMapping("/like")
     fun save(
-        @RequestBody saveDto: LikeSaveDto
-    ): ResponseEntity<ResponseToServerDto> {
-        likeService.save(saveDto)
+        @Valid @RequestBody request: LikeRequest
+    ): ResponseEntity<LikeServerSaveResponse> {
         return ResponseEntity.ok().body(
-            ResponseToServerDto(
-                error = null,
-                userIds = null
+            LikeServerSaveResponse.of(
+                likeService.save(request)
             )
         )
     }
@@ -33,10 +33,10 @@ class LikeController(
     @DeleteMapping("/like")
     fun delete(
         @RequestBody boardId: Long
-    ): ResponseEntity<ResponseToServerDto> {
+    ): ResponseEntity<LikeServerSaveResponse> {
         likeService.delete(boardId)
         return ResponseEntity.ok().body(
-            ResponseToServerDto(
+            LikeServerSaveResponse(
                 error = null,
                 userIds = null
             )
@@ -46,9 +46,9 @@ class LikeController(
     @GetMapping("/like/users")
     fun findUserIdsByBoardId(
         @RequestParam boardId: Long,
-    ): ResponseEntity<ResponseToServerDto> {
+    ): ResponseEntity<LikeServerSaveResponse> {
         return ResponseEntity.ok().body(
-            ResponseToServerDto(
+            LikeServerSaveResponse(
                 error = null,
                 userIds = likeService.findUserIdsByBoardId(boardId)
             )

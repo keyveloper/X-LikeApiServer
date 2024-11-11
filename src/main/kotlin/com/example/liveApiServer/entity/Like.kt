@@ -20,5 +20,5 @@ class Like(
 
     val userId: Long,
 
-    val likeType: Int
+    val likeType: LikeType
 )

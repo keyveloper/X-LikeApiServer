@@ -1,5 +1,5 @@
 package com.example.liveApiServer.execption
 
-import com.example.liveApiServer.enum.ServerErrorCode
+import com.example.liveApiServer.enum.ServiceServerError
 
-class ChangeStatusFailureException: LikeApiException(ServerErrorCode.LIKE_CHANGE_FAILURE, "Like status not changed")
+class ChangeStatusFailureException: LikeApiException(ServiceServerError.LIKE_CHANGE_FAILURE, "Like status not changed")

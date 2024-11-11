@@ -1,6 +1,6 @@
 package com.example.liveApiServer.execption
 
-import com.example.liveApiServer.enum.ServerErrorCode
+import com.example.liveApiServer.enum.ServiceServerError
 
-class SaveFailureException: LikeApiException(ServerErrorCode.SAVE_FAILURE, "like failure") {
+class SaveFailureException: LikeApiException(ServiceServerError.SAVE_FAILURE, "like failure") {
 }
