@@ -1,9 +1,10 @@
 package com.example.liveApiServer.controller
 
-import com.example.liveApiServer.dto.LikeRequest
-import com.example.liveApiServer.dto.LikeServerSaveResponse
-import com.example.liveApiServer.dto.save.LikeRequest
-import com.example.liveApiServer.dto.save.LikeServerSaveResponse
+import com.example.liveApiServer.dto.save.request.LikeChangeRequest
+import com.example.liveApiServer.dto.save.request.LikeSaveRequest
+import com.example.liveApiServer.dto.save.response.LikeServerChangeResponse
+import com.example.liveApiServer.dto.save.response.LikeServerSaveResponse
+import com.example.liveApiServer.enum.MSAServerErrorCode
 import com.example.liveApiServer.service.LikeService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
@@ -19,38 +20,28 @@ class LikeController(
     private val likeService: LikeService,
 ) {
 
-    @PostMapping("/like")
+    @PostMapping("/saveLike")
     fun save(
-        @Valid @RequestBody request: LikeRequest
+        @Valid @RequestBody request: LikeSaveRequest
     ): ResponseEntity<LikeServerSaveResponse> {
+        likeService.save(request)
         return ResponseEntity.ok().body(
             LikeServerSaveResponse.of(
-                likeService.save(request)
+                errorDetails = null,
+                errorCode = MSAServerErrorCode.SUCCESS
             )
         )
     }
 
-    @DeleteMapping("/like")
-    fun delete(
-        @RequestBody boardId: Long
-    ): ResponseEntity<LikeServerSaveResponse> {
-        likeService.delete(boardId)
+    @DeleteMapping("/changeLike")
+    fun changeType(
+        @Valid @RequestBody request: LikeChangeRequest
+    ): ResponseEntity<LikeServerChangeResponse> {
+        likeService.changeType(request)
         return ResponseEntity.ok().body(
-            LikeServerSaveResponse(
-                error = null,
-                userIds = null
-            )
-        )
-    }
-
-    @GetMapping("/like/users")
-    fun findUserIdsByBoardId(
-        @RequestParam boardId: Long,
-    ): ResponseEntity<LikeServerSaveResponse> {
-        return ResponseEntity.ok().body(
-            LikeServerSaveResponse(
-                error = null,
-                userIds = likeService.findUserIdsByBoardId(boardId)
+            LikeServerChangeResponse(
+                errorCode = MSAServerErrorCode.SUCCESS,
+                errorDetails = null
             )
         )
     }

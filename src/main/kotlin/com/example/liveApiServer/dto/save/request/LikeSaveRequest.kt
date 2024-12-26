@@ -1,9 +1,9 @@
-package com.example.liveApiServer.dto.save
+package com.example.liveApiServer.dto.save.request
 
 import com.example.liveApiServer.enum.LikeType
 import org.jetbrains.annotations.NotNull
 
-data class LikeRequest(
+data class LikeSaveRequest(
     @field: NotNull
     val boardId: Long,
     @field: NotNull

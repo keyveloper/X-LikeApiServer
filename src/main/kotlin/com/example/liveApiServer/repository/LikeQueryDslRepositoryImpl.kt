@@ -1,5 +1,6 @@
 package com.example.liveApiServer.repository
 
+import com.example.liveApiServer.dto.save.request.LikeChangeRequest
 import com.example.liveApiServer.entity.Like
 import com.example.liveApiServer.entity.QLike
 import com.example.liveApiServer.enum.LikeType
@@ -9,11 +10,16 @@ class LikeQueryDslRepositoryImpl(
     private val queryFactory: JPAQueryFactory
 ):LikeQueryDslRepository {
     private val like = QLike.like
-    override fun deleteLogically(boardId: Long) {
-        queryFactory
-            .update(like)
-            .set(like.likeType, LikeType.NONE.ordinal)
-            .where(like.boardId.eq(boardId))
-            .execute()
+
+    override fun findByUserIDAndBoardId(userId: Long, boardId: Long): Like? {
+        return queryFactory
+            .selectFrom(like)
+            .where(like.boardId.eq(boardId)
+                .and(like.userId.eq(userId)))
+            .fetchOne()
+    }
+
+    override fun changType(likeId: Long, type: LikeType) {
+
     }
 }

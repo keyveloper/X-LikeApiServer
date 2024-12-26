@@ -1,7 +1,6 @@
 package com.example.liveApiServer.execption
 
-import com.example.liveApiServer.dto.ServerErrorDetails
-import com.example.liveApiServer.dto.save.LikeServerSaveResponse
+import com.example.liveApiServer.dto.error.MSAServerErrorResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
@@ -9,9 +8,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class GlobalExceptionHandler {
     @ExceptionHandler
-    fun handleLikeApiException(ex: LikeApiException): ResponseEntity<LikeServerSaveResponse> {
+    fun handleBusinessException(ex: BusinessException): ResponseEntity<MSAServerErrorResponse> {
         return ResponseEntity.ok().body(
-            LikeServerSaveResponse(
+            MSAServerErrorResponse(
+                errorCode = ex.errorCode,
+                errorDetails = ex.errorDetails
             )
         )
     }
