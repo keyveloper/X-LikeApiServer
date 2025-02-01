@@ -4,6 +4,7 @@ import com.example.likeApiServer.dto.error.MSAServerErrorDetails
 import com.example.likeApiServer.dto.request.LikeChangeRequest
 import com.example.likeApiServer.dto.response.LikeServerChangeResult
 import com.example.likeApiServer.dto.request.LikeSaveRequest
+import com.example.likeApiServer.dto.response.LikeServerCountResult
 import com.example.likeApiServer.dto.response.LikeServerSaveResult
 import com.example.likeApiServer.entity.Like
 import com.example.likeApiServer.enum.MSAServerErrorCode
@@ -27,7 +28,7 @@ class LikeService(
                     id = null, // 이렇게 명시하는게 좋아.
                     boardId = request.boardId,
                     userId = request.userId,
-                    likeType = request.likeType,
+                    type = request.likeType,
                 )
             )
             LikeServerSaveResult.of(isSave = true, newEntity)
@@ -86,14 +87,21 @@ class LikeService(
             )
         )
 
-        like.likeType = request.type // 자동 없데이트
+        like.type = request.type // 자동 없데이트
 
         val changedLike = likeRepository.save(like)
         return LikeServerChangeResult.of(
             isChange = true,
             likeId = changedLike.id!!,
             boardId = changedLike.boardId,
-            changedType = changedLike.likeType.code
+            changedType = changedLike.type.code
+        )
+    }
+
+    fun countLikes(targetBoardId: Long): LikeServerCountResult {
+        return LikeServerCountResult.of(
+            targetBoardId = targetBoardId,
+            totalCount = likeRepository.countLikes(targetBoardId)
         )
     }
 }

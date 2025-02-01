@@ -2,7 +2,6 @@ package com.example.likeApiServer.repository
 
 import com.example.likeApiServer.entity.Like
 import com.example.likeApiServer.entity.QLike
-import com.example.likeApiServer.enum.LikeType
 import com.querydsl.jpa.impl.JPAQueryFactory
 
 class LikeQueryDslRepositoryImpl(
@@ -18,7 +17,11 @@ class LikeQueryDslRepositoryImpl(
             .fetchOne()
     }
 
-    override fun changType(likeId: Long, type: LikeType) {
-
+    override fun countLikes(targetBoardId: Long): Long {
+        return queryFactory
+            .select(like.count())
+            .from(like)
+            .where(like.boardId.eq(targetBoardId))
+            .fetchOne() ?: 0L
     }
 }
