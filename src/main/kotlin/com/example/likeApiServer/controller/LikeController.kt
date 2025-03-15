@@ -35,7 +35,7 @@ class LikeController(
         )
     }
 
-    @DeleteMapping("/changeLike")
+    @PostMapping("/changeLike")
     fun changeType(
         @Valid @RequestBody request: LikeChangeRequest
     ): ResponseEntity<LikeServerChangeResponse> {
@@ -49,7 +49,7 @@ class LikeController(
         )
     }
 
-    @GetMapping("/countLikes")
+    @PostMapping("/countLikes")
     fun countLikes(
         @Valid @RequestBody request: LikeCountGetRequest
     ): ResponseEntity<LikeServerCountResponse> {
