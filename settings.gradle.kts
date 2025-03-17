@@ -1,1 +1,1 @@
-rootProject.name = "likeApiServer"
+rootProject.name = "X-likeApiServer"
