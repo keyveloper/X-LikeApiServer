@@ -6,6 +6,4 @@ spring:
       local: db-local-window
       beta: db-beta-linux
 
-  application:
-    name: x-likeApi-server
 
