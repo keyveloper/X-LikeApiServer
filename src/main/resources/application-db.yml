@@ -22,7 +22,7 @@ spring:
       on-profile: db-beta-linux
 
   datasource:
-    url: jdbc:mariadb://192.168.1.11:3306/x?useSSL=false&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
+    url: jdbc:mariadb://192.168.5.130:3306/x?useSSL=false&useUnicode=true&characterEncoding=utf8&characterSetResults=utf8
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
